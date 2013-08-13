@@ -170,7 +170,10 @@ public class UnderlinePageIndicator extends View implements PageIndicator {
         }
 
         final int paddingLeft = getPaddingLeft();
-        final float pageWidth = (getWidth() - paddingLeft - getPaddingRight()) / (1f * count);
+        float width = (getWidth() - paddingLeft - getPaddingRight()) / (1f * count);
+        if (mViewPager.getAdapter().getPageWidth(mCurrentPage) == 0.5f)
+            width *= 1f+1f/(count-1); // We make the indicator larger in order to fill up the last page
+        final float pageWidth = width;
         final float left = paddingLeft + pageWidth * (mCurrentPage + mPositionOffset);
         final float right = left + pageWidth;
         final float top = getPaddingTop();
